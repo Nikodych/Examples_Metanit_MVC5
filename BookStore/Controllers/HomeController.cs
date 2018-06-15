@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BookStore.Models;
@@ -37,6 +39,20 @@ namespace BookStore.Controllers
             // сохраняем в бд все изменения
             db.SaveChanges();
             return "Спасибо," + purchase.Person + ", за покупку!";
+        }
+
+        // асинхронный метод
+        public async Task<ActionResult> BookList()
+        {
+            IEnumerable<Book> books = await db.Books.ToListAsync();
+            ViewBag.Books = books;
+            return View("Index");
+        }
+
+        public ActionResult GetList()
+        {
+            ViewBag.Message = "Это частичное представление.";
+            return PartialView();
         }
     }
 }
