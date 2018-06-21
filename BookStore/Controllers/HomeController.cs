@@ -21,6 +21,9 @@ namespace BookStore.Controllers
             // передаем все объекты в динамическое свойство Books в ViewBag
             ViewBag.Books = books;
             // возвращаем представление
+
+            ViewBag.Message = "Это вызов частичного представления из обычного";
+
             return View();
         }
 
