@@ -25,6 +25,10 @@ namespace BookStore.Controllers
             ViewBag.Message = "Это вызов частичного представления из обычного";
 
             return View();
+
+/*            SelectList books = new SelectList(db.Books, "Author", "Name");
+            ViewBag.Books = books;
+            return View();*/
         }
 
         [HttpGet]
@@ -56,6 +60,41 @@ namespace BookStore.Controllers
         {
             ViewBag.Message = "Это частичное представление.";
             return PartialView();
+        }
+
+        [HttpPost]
+        public string Index(string[] countries)
+        {
+            string result = "";
+            foreach (string c in countries)
+            {
+                result += c;
+                result += ";";
+            }
+            return "Вы выбрали: " + result;
+        }
+
+        [HttpPost]
+        public string MyAction(string product, string action)
+        {
+            if (action == "add")
+            {
+                return "Вы нажали " + action;
+            }
+            else if (action == "delete")
+            {
+                return "Вы нажали " + action;
+            }
+            else
+            {
+                return "Ошибка";
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
